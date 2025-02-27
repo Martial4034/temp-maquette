@@ -33,7 +33,7 @@ interface AppProps {
 }
 
 const InitialUserData = {
-    username: "Beta Player", // 1 - Username displayed as static text.
+    username: "Alpha Player", // 1 - Username displayed as static text.
     email: "youremail@tanks.io", // 2 - Input field with a default placeholder (modifiable by the user).
     oxBalance: 99999, // 3 - Amount of OX the user owns.
     bestScore: 999, // 4 - User's highest recorded score.

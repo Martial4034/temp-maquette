@@ -6,7 +6,7 @@ export default defineConfig({
     server: {
         host: '0.0.0.0', // Cela le rend accessible depuis n'importe quelle adresse
         port: 5173,
-        allowedHosts: ['e4b2-157-143-128-238.ngrok-free.app', 'localhost'], // Ajout de l'hôte autorisé
+        allowedHosts: ['8094-157-143-128-238.ngrok-free.app', 'localhost'], // Ajout de l'hôte autorisé
     },
     plugins: [react()],
     build: {

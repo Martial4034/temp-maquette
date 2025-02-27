@@ -1,15 +1,12 @@
 import WebApp from '@twa-dev/sdk';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useWindowSize } from 'react-use';
-import { postEvent } from '@telegram-apps/sdk';
+import { popup } from '@telegram-apps/sdk';
 
 import MainButton from '../../components/Buttons/MainButton';
 import MenuButton from '../../components/Buttons/MenuButton';
 import { useAppContext } from '../../contexts/AppContext';
-import { db } from '../../firebase';
-import { getTelegram } from '../../packages/mini-app/utils';
 
 import useBackButton from '../../packages/mini-app/components/BackButton/useBackButton';
 import AboutDialog from './About/AboutDialog';
@@ -24,17 +21,6 @@ import RuleDialog from './Rule/RuleDialog';
 import ValidationDialog from './Validataion/ValidationDialog';
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface TelegramUserInfo {
-    allows_write_to_pm: boolean;
-    first_name: string;
-    last_name: string;
-    username: string;
-    id: number;
-    language_code: string;
-    photo_url: string;
-    is_premium: boolean;
-}
-
 const Main = () => {
     const { t } = useTranslation();
     const { isLoaded, setIsLoaded, showDialog, setShowDialog, mode, setMode, user } = useAppContext();
@@ -43,54 +29,6 @@ const Main = () => {
     const [isSplashVisible, setIsSplashVisible] = useState(false);
 
     const isNeedRotate = width < height;
-
-    const addDataToFirestore = async (userInfo: TelegramUserInfo) => {
-        try {
-            let isExisted = false;
-            const querySnapshot = await getDocs(collection(db, 'users'));
-            querySnapshot.forEach((doc) => {
-                if (doc.data().id === userInfo.id) {
-                    isExisted = true;
-                }
-            });
-            if (!isExisted) {
-                const docRef = await addDoc(collection(db, 'users'), userInfo);
-                console.log('Document written with ID: ', docRef.id);
-                
-                postEvent('web_app_open_popup', {
-                    title: '🎮 Welcome Beta Tester!',
-                    message: 'Welcome to our exclusive beta testing community! You are among the first to experience this exciting new game. Please note that as this is a beta version, you may encounter some bugs or unfinished features. Your feedback is incredibly valuable to us in making this game even better!',
-                    buttons: [
-                        {
-                            id: 'start_game',
-                            type: 'default',
-                            text: "Let's Play! 🚀"
-                        },
-                        {
-                            id: 'close_popup',
-                            type: 'close'
-                        }
-                    ]
-                });
-            }
-        } catch (e) {
-            console.error('Error adding document: ', e);
-        }
-    };
-
-    useEffect(() => {
-        const telegramApp = (window as any).Telegram.WebApp.initData;
-        const params = new URLSearchParams(telegramApp);
-
-        const telegram = getTelegram();
-        telegram?.requestFullscreen?.();
-
-        const user = params.get('user');
-        if (user) {
-            const userInfo: TelegramUserInfo = JSON.parse(user);
-            addDataToFirestore(userInfo);
-        }
-    }, []);
 
     const toggleDialog = (mode: string) => {
         setShowDialog(true);
@@ -102,6 +40,31 @@ const Main = () => {
         WebApp.HapticFeedback.impactOccurred('medium');
     };
 
+    const showBetaPopup = async () => {
+        if (popup.isSupported()) {
+            try {
+                const buttonId = await popup.open({
+                    title: '🎮 Welcome Alpha Tester!',
+                    message: 'Welcome to our exclusive beta testing community! You are among the first to experience this exciting new game. Please note that as this is a beta version, you may encounter some bugs or unfinished features. Your feedback is incredibly valuable to us in making this game even better!',
+                    buttons: [
+                        {
+                            id: 'start_game',
+                            type: 'default',
+                            text: "Let's Play! 🚀"
+                        }
+                    ]
+                });
+                console.log('Button clicked:', buttonId);
+            } catch (error) {
+                console.error('Error showing popup:', error);
+                // Fallback to simple alert if popup fails
+            }
+        } else {
+            // Fallback for unsupported platforms
+            WebApp.showAlert('Welcome Alpha Tester! You are among the first to test this exciting new game. Please note that this is an alpha version.');
+        }
+    };
+
     useEffect(() => {
         if (!isNeedRotate && !isLoaded) {
             setIsSplashVisible(true);
@@ -109,6 +72,7 @@ const Main = () => {
         const timer = setTimeout(() => {
             setIsSplashVisible(false);
             setIsLoaded(true);
+            showBetaPopup(); // Afficher la popup après le splash screen
         }, 3000);
 
         return () => clearTimeout(timer);
@@ -126,7 +90,7 @@ const Main = () => {
             <div className="flex h-screen flex-col items-center justify-center bg-[#000000b0] text-center">
                 <img src="/images/rotate.png" alt="rotete" className="h-16 w-16" />
                 <h1 className="text-stroke cursor-pointer text-2xl drop-shadow-[0px_0px_15px_#E84CD7]">
-                    Please rotate your screrren to landscape
+                    Please rotate your screen to landscape
                 </h1>
             </div>
         );
