@@ -33,10 +33,10 @@ interface AppProps {
 }
 
 const InitialUserData = {
-    username: "Player123", // 1 - Username displayed as static text.
+    username: "Beta Player", // 1 - Username displayed as static text.
     email: "youremail@tanks.io", // 2 - Input field with a default placeholder (modifiable by the user).
-    oxBalance: 1500, // 3 - Amount of OX the user owns.
-    bestScore: 98765, // 4 - User's highest recorded score.
+    oxBalance: 99999, // 3 - Amount of OX the user owns.
+    bestScore: 999, // 4 - User's highest recorded score.
     language: "en", // 5 - Selected language (OK, no changes needed).
     soundEnabled: true, // 6 - Sound button (true = enabled, false = disabled).
     walletLinked: false, // 7 - Wallet link status (false = not linked, true = linked).
