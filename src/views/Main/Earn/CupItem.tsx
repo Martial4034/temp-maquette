@@ -16,7 +16,7 @@ const CupItem = ({ index, reward }: CupItemProps) => {
                     <div className="short-info-border3 p-[1px] lg:p-0.5">
                         <div className={`relative flex short-info w-full ${index == 1 ? 'h-20 lg:h-40' : index == 2 ? 'h-16 lg:h-28' : 'h-12 lg:h-20'}`}>
                             <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center p-4 lg:p-8 text-lg lg:text-3xl">
-                                {reward}$
+                                {reward} TON
                             </div>
                         </div>
                     </div>

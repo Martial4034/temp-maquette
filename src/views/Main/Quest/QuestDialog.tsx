@@ -10,17 +10,28 @@ import QuestItem, { Quest } from "./QuestItem";
 import MenuItem from "./MenuItem";
 
 const dailyQuests: Quest[] = [
-    { id: 1, description: "Win 3 games", goal: 3, currentProgress: 1, oxReward: 50, completed: false, date: "2025-01-23" },
-    { id: 2, description: "Invite 2 friends", goal: 2, currentProgress: 0, oxReward: 100, completed: false, date: "2025-01-23" },
-    { id: 3, description: "Play 10 matches", goal: 10, currentProgress: 10, oxReward: 150, completed: true, date: "2025-01-23" },
-    { id: 4, description: "Complete 2 daily quests", goal: 2, currentProgress: 0, oxReward: 40, completed: false, date: "2025-01-26" },
-    { id: 5, description: "Reach level 10", goal: 10, currentProgress: 6, oxReward: 100, completed: false, date: "2025-01-27" },
-    { id: 6, description: "Defeat the boss 3 times", goal: 3, currentProgress: 2, oxReward: 75, completed: false, date: "2025-01-28" }
+    { id: 1, description: "Log in Today", goal: 1, currentProgress: 0, oxReward: 25, completed: false, date: "2025-01-23" },
+    { id: 2, description: "Partner Link", goal: 1, currentProgress: 0, oxReward: 50, completed: false, date: "2025-01-23" },
+    { id: 3, description: "Get a score of 25", goal: 25, currentProgress: 0, oxReward: 25, completed: false, date: "2025-01-23" },
+    { id: 4, description: "Get a score of 50", goal: 50, currentProgress: 0, oxReward: 50, completed: false, date: "2025-01-23" },
+    { id: 5, description: "Play 10 games", goal: 10, currentProgress: 0, oxReward: 25, completed: false, date: "2025-01-23" },
+    { id: 6, description: "Play 25 games", goal: 25, currentProgress: 0, oxReward: 50, completed: false, date: "2025-01-23" },
+    { id: 7, description: "Play an Earn Game", goal: 1, currentProgress: 0, oxReward: 25, completed: false, date: "2025-01-23" },
+    { id: 8, description: "Win an Earn Game", goal: 1, currentProgress: 0, oxReward: 50, completed: false, date: "2025-01-23" },
+    { id: 9, description: "Invite 1 friend", goal: 1, currentProgress: 0, oxReward: 25, completed: false, date: "2025-01-23" },
+    { id: 10, description: "Invite 3 friends", goal: 3, currentProgress: 0, oxReward: 50, completed: false, date: "2025-01-23" }
 ];
 
 const perpetualQuests: Quest[] = [
-    { id: 101, description: "Win 50 games", goal: 50, currentProgress: 12, oxReward: 500, completed: false },
-    { id: 102, description: "Earn 1000 OX", goal: 1000, currentProgress: 400, oxReward: 750, completed: false },
+    { id: 100, description: "Add your email", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 101, description: "Connect your wallet", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 102, description: "Join the Telegram channel", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 103, description: "Join the community", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 104, description: "Join Twitter", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 105, description: "Join Oxelta Twitter", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 106, description: "Follow X Galante", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 107, description: "Follow X Tony", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
+    { id: 108, description: "Telegram Premium", goal: 1, currentProgress: 0, oxReward: 100, completed: false },
 ];
 
 const QuestDialog = () => {

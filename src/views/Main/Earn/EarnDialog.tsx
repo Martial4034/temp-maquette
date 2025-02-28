@@ -9,7 +9,7 @@ import ModeItem from "./ModeItem";
 import EarnButton from "./EarnButton";
 import CupItem from "./CupItem";
 
-export type BetOption = 5 | 10 | 20 | 50; // Possible bet values
+export type BetOption = 1 | 2 | 5 | 20; // Possible bet values
 export type PlayerCount = 3 | 10 | 20 | 100; // Number of players
 
 export type PrizeDistribution = {
@@ -24,47 +24,47 @@ type GameMode = {
 };
 
 const players: PlayerCount[] = [3, 10, 20, 100];
-const bets: BetOption[] = [5, 10, 20, 50];
+const bets: BetOption[] = [1, 2, 5, 20];
 
-// Configurable prize settings
 const gameModes: GameMode[] = [
     {
         players: 3,
         bets: {
+            1: { first: 2 },   // 1er : 2 TON
+            2: { first: 4 },
             5: { first: 10 },
-            10: { first: 20 },
-            20: { first: 40 },
-            50: { first: 100 },
-        },
+            20: { first: 40 }
+        }
     },
     {
         players: 10,
         bets: {
-            5: { first: 25, second: 15, third: 10 },
-            10: { first: 50, second: 30, third: 20 },
-            20: { first: 100, second: 60, third: 40 },
-            50: { first: 250, second: 150, third: 100 },
-        },
+            1: { first: 5, second: 3, third: 1 },
+            2: { first: 10, second: 6, third: 2 },
+            5: { first: 25, second: 15, third: 5 },
+            20: { first: 100, second: 60, third: 20 }
+        }
     },
     {
         players: 20,
         bets: {
-            5: { first: 50, second: 30, third: 20 },
-            10: { first: 100, second: 60, third: 40 },
-            20: { first: 200, second: 120, third: 80 },
-            50: { first: 500, second: 300, third: 200 },
-        },
+            1: { first: 10, second: 6, third: 2 },
+            2: { first: 20, second: 12, third: 4 },
+            5: { first: 50, second: 30, third: 10 },
+            20: { first: 200, second: 120, third: 40 }
+        }
     },
     {
         players: 100,
         bets: {
-            5: { first: 250, second: 150, third: 100 },
-            10: { first: 500, second: 300, third: 200 },
-            20: { first: 1000, second: 600, third: 400 },
-            50: { first: 2500, second: 1500, third: 1000 },
-        },
-    },
+            1: { first: 50, second: 30, third: 10 },
+            2: { first: 100, second: 60, third: 20 },
+            5: { first: 250, second: 150, third: 50 },
+            20: { first: 1000, second: 600, third: 200 }
+        }
+    }
 ];
+
 
 const EarnDialog = () => {
     const { t, i18n: { language } } = useTranslation();
@@ -128,7 +128,9 @@ const EarnDialog = () => {
                             const isInactive = betCost ? !isSelected : false;
                             return (
                                 <ModeItem selected={isSelected} inActive={isInactive} action={() => handleSelectBet(bet)} key={index}>
-                                    <div className="text-xl lg:text-3xl">{bet}$</div>
+                                    <div className="text-xl lg:text-3xl">
+                                        {bet} TON
+                                    </div>
                                 </ModeItem>
                             );
                         })}
